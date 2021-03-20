@@ -24,12 +24,12 @@ class AddInvoiceTest extends TestCase
      */
     public function testCreateInvoice() {
         $initInvoice = new InvoiceOperations('APP_ID_1603009563', '4a446a20-4f4d-37fc-a27f-dc5b2b6bce0b', true);
-//        $this->assertIsArray($initInvoice);
 
         try {
             $createInvoice = $initInvoice->createInvoice('Test Name', 50, [
                 'callBackUrl' => 'https://www.example.com',
                 'orderNumber' => 123123123,
+                'clientMobile' => '0509200900',
                 'products' => [
                     [
                         'description' => 'Test Description',
@@ -46,6 +46,18 @@ class AddInvoiceTest extends TestCase
             $jsonBody = (string) $response->getBody();
             print PHP_EOL.print_r($jsonBody, true).PHP_EOL;
         }
+    }
 
+    public function testCheckInvoice() {
+        $initInvoice = new InvoiceOperations('APP_ID_1603009563', '4a446a20-4f4d-37fc-a27f-dc5b2b6bce0b', true);
+        try {
+
+            $checkInvoice = $initInvoice->checkInvoice('1616195468428');
+            print PHP_EOL.print_r($checkInvoice, true).PHP_EOL;
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $jsonBody = (string) $response->getBody();
+            print PHP_EOL.print_r($jsonBody, true).PHP_EOL;
+        }
     }
 }

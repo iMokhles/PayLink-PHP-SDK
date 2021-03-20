@@ -15,6 +15,12 @@ use iMokhles\PayLinkAPI\V1\PLNKConnect;
 class InvoiceOperations extends PLNKConnect
 {
 
+    /**
+     * @param $customerName
+     * @param $invoiceValue
+     * @param $params
+     * @return mixed|string
+     */
     public function createInvoice($customerName, $invoiceValue, $params) {
 
         $parameters = [
@@ -45,5 +51,15 @@ class InvoiceOperations extends PLNKConnect
         $url = $this->getUrl('addInvoice');
         return $this->postJson($url, $parameters, $this->header);
 
+    }
+
+    /**
+     * @param $transactionNo
+     * @return mixed|string
+     */
+    public function checkInvoice($transactionNo) {
+
+        $url = $this->getUrl('getInvoice/'.$transactionNo);
+        return $this->get($url, [], $this->header);
     }
 }
